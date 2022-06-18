@@ -5,21 +5,22 @@ Created on Sun Dec 19 18:20:58 2021
 @author: utpal-singh
 """
 
-import pandas as utpal
+#import pandas as utpal
 import os
 import glob
 from pathlib import Path
-import numpy
-import matplotlib.pyplot as plt
-import linecache
+#import numpy
+#import matplotlib.pyplot as plt
+#import linecache
 
 # read fifth line
-line = linecache.getline(r"E:\demos\files\read_demo.txt", 5)
-print(line)
+#line = linecache.getline(r"E:\demos\files\read_demo.txt", 5)
+#print(line)
 destination = input("Enter destination from this folder: \n")
 #depth = float(input("Enter max depth in metres, avoid negative values: \n"))
 #output_filename = input("Enter output filename, dont include xlsx: \n")
-
+if os.path.exists("gasflow.csv"):
+    os.remove("gasflow.csv")
 files = glob.glob("./" + destination + "/*", recursive=True)
 import re
 
@@ -49,7 +50,17 @@ for elem in final_list:
         line_num += 1
         if line.find(search_phrase) >= 0:
             #print(number_str + "    " + str(line_num))
-            print(number_str + "," +g.readlines()[line_num+3].strip().split()[4])
+            #print(number_str + "," +g.readlines()[line_num+3].strip().split()[4])
+            filename = 'gasflow.csv'
+
+            if os.path.exists(filename):
+                append_write = 'a' # append if already exists
+            else:
+                append_write = 'w' # make a new file if not
+
+            gash = open(filename,append_write)
+            gash.write(number_str + "," +g.readlines()[line_num+3].strip().split()[4] + '\n')
+            gash.close()
             break
 
 '''

@@ -2,10 +2,10 @@
 """
 Created on Sun Dec 19 18:20:58 2021
 
-@author: utpal-singh
+@author: pd-singh
 """
 
-import pandas as utpal
+import pandas as pd
 import os
 import glob
 from pathlib import Path
@@ -52,9 +52,9 @@ mylist = []
 length = 0
 
 names = ["x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"]
-daf = utpal.DataFrame(columns=names)
+daf = pd.DataFrame(columns=names)
 #for item in final_list:
-#    df = utpal.read_csv(item, sep = "  | ", names = names, skiprows=2, engine = "python")
+#    df = pd.read_csv(item, sep = "  | ", names = names, skiprows=2, engine = "python")
 #    length_df = len(df)
 #    temp = df
 #    temp = length
@@ -68,7 +68,7 @@ daf = utpal.DataFrame(columns=names)
 #    df.iloc[0] = df.iloc[length_df]
 #    df.drop(length_df, inplace=True)        
 #    daf = daf.append(df)
-#    #utpal.concat([daf, df])
+#    #pd.concat([daf, df])
 
     
 
@@ -83,9 +83,9 @@ print("*************************************************************************
 names = ["x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"]
 variable_plot = input('Please enter among the following: "x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap":      ')
 #print('"x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"')
-daf = utpal.DataFrame(columns=names)
+daf = pd.DataFrame(columns=names)
 for item in final_list:
-    df = utpal.read_csv(item, sep = "  | ", names = names, skiprows=2, engine = "python")
+    df = pd.read_csv(item, sep = "  | ", names = names, skiprows=2, engine = "python")
     length_df = len(df)
     temp = df
     temp = length

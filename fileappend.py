@@ -2,10 +2,10 @@
 """
 Created on Sun Dec 19 18:20:58 2021
 
-@author: utpal-singh
+@author: pd-singh
 """
 
-import pandas as utpal
+import pandas as pd
 import os
 import glob
 from pathlib import Path
@@ -36,9 +36,9 @@ mylist = []
 length = 0
 
 names = ["x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"]
-daf = utpal.DataFrame(columns=names)
+daf = pd.DataFrame(columns=names)
 for item in files:
-    df = utpal.read_csv(item, sep = "  | ", names = names, skiprows=2)
+    df = pd.read_csv(item, sep = "  | ", names = names, skiprows=2)
     length_df = len(df)
     temp = df
     temp = length

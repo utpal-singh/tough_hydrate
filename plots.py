@@ -90,6 +90,8 @@ print("*************************************************************************
 #print('"x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"')
 #daf = pd.DataFrame(columns=names)
 for item in final_list:
+    if os.path.exists(variable_plot+"/"+item.strip().split("/")[2]+"_" + variable_plot + ".jpg"):
+        continue
     df = pd.read_csv(item, sep = "  | ", names = names, skiprows=2, nrows=1500, engine = "python")
     length_df = len(df)
     temp = df

@@ -17,8 +17,8 @@ from pathlib import Path
 import numpy
 import matplotlib.pyplot as plt
 
-if not os.path.exists("./" + variable_plot):
-    os.makedirs("./" + variable_plot)
+if not os.path.exists("./plots_" + destination + '_' + variable_plot):
+    os.makedirs("./plots_" + destination + '_' + variable_plot)
 
 files = glob.glob("./" + destination + "/*", recursive=True)
 import re
@@ -90,7 +90,7 @@ print("*************************************************************************
 #print('"x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"')
 #daf = pd.DataFrame(columns=names)
 for item in final_list:
-    if os.path.exists(variable_plot+"/"+item.strip().split("/")[2]+"_" + variable_plot + ".jpg"):
+    if os.path.exists("plots_" + destination+'_'+variable_plot+"/"+item.strip().split("/")[2]+"_" + variable_plot + ".jpg"):
         continue
     df = pd.read_csv(item, sep = "  | ", names = names, skiprows=2, nrows=1500, engine = "python")
     length_df = len(df)
@@ -110,6 +110,6 @@ for item in final_list:
     plt.title(variable_plot + " vs z " + str(item))
     plt.ylabel("z")
     plt.xlabel(variable_plot)
-    plt.savefig(variable_plot+"/"+item.strip().split("/")[2]+"_" + variable_plot + ".jpg", dpi=300)
+    plt.savefig("plots_" + destination+'_'+variable_plot+"/"+item.strip().split("/")[2]+"_" + variable_plot + ".jpg", dpi=300)
     plt.clf()
 print("*****************************************************************************************************")

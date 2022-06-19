@@ -2,7 +2,7 @@
 """
 Created on Sun Dec 19 18:20:58 2021
 
-@author: pd-singh
+@author: utpal-singh
 """
 
 import pandas as pd
@@ -31,14 +31,24 @@ alist = files
 
 alist.sort(key=natural_keys)
 
+start_letter = "./" + destination + "/" + 'Plot_Data_Elem_'
+
+# printing original list
+print("****************************************************************************************")
+# using list comprehension + startswith()
+# Prefix Separation
+final_list = [x for x in alist if x.startswith(start_letter)]
+
+print(final_list)
+
 
 mylist = []
 length = 0
 
 names = ["x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"]
 daf = pd.DataFrame(columns=names)
-for item in files:
-    df = pd.read_csv(item, sep = "  | ", names = names, skiprows=2)
+for item in final_list:
+    df = pd.read_csv(item, sep = "  | ", names = names, skiprows=2, nrows=1501)
     length_df = len(df)
     temp = df
     temp = length

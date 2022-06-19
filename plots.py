@@ -2,11 +2,10 @@
 """
 Created on Sun Dec 19 18:20:58 2021
 
-@author: pd-singh
+@author: utpal-singh
 """
 destination = input("Enter destination from this folder: \n")
 depth = float(input("Enter max depth in metres, avoid negative values: \n"))
-output_filename = input("Enter output filename, dont include xlsx: \n")
 
 names = ["x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"]
 variable_plot = input('Please enter among the following: "x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap":      ')
@@ -17,6 +16,9 @@ import glob
 from pathlib import Path
 import numpy
 import matplotlib.pyplot as plt
+
+if not os.path.exists("./" + variable_plot):
+    os.makedirs("./" + variable_plot)
 
 files = glob.glob("./" + destination + "/*", recursive=True)
 import re
@@ -54,8 +56,8 @@ print("--------------------------Appending files--------------------------------
 mylist = []
 length = 0
 
-names = ["x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"]
-daf = pd.DataFrame(columns=names)
+#names = ["x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"]
+#daf = pd.DataFrame(columns=names)
 #for item in final_list:
 #    df = pd.read_csv(item, sep = "  | ", names = names, skiprows=2, engine = "python")
 #    length_df = len(df)
@@ -79,16 +81,16 @@ daf = pd.DataFrame(columns=names)
 #sorteddf = daf[daf['z']>=-1*depth]
 #sorteddf.to_csv(output_filename+str(-1*depth)+".csv")
 
-print("---------------------Appending files done------------------------------------------------")
+#print("---------------------Appending files done------------------------------------------------")
 
 print("*************************************************************************************************")
 
 #names = ["x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"]
 #variable_plot = input('Please enter among the following: "x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap":      ')
 #print('"x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"')
-daf = pd.DataFrame(columns=names)
+#daf = pd.DataFrame(columns=names)
 for item in final_list:
-    df = pd.read_csv(item, sep = "  | ", names = names, skiprows=2, engine = "python")
+    df = pd.read_csv(item, sep = "  | ", names = names, skiprows=2, nrows=1500, engine = "python")
     length_df = len(df)
     temp = df
     temp = length
@@ -102,7 +104,6 @@ for item in final_list:
     df.iloc[0] = df.iloc[length_df]
     df.drop(length_df, inplace=True)
     sorteddf = df[df['z']>=-1*depth]
-    print(sorteddf)
     plt.plot(sorteddf[variable_plot], sorteddf['z'])
     plt.title(variable_plot + " vs z " + str(item))
     plt.ylabel("z")

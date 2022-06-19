@@ -2,7 +2,7 @@
 """
 Created on Sun Dec 19 18:20:58 2021
 
-@author: pd-singh
+@author: utpal-singh
 """
 destination = input("Enter destination from this folder: \n")
 depth = float(input("Enter max depth in metres, avoid negative values: \n"))

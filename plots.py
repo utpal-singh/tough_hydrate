@@ -4,6 +4,12 @@ Created on Sun Dec 19 18:20:58 2021
 
 @author: pd-singh
 """
+destination = input("Enter destination from this folder: \n")
+depth = float(input("Enter max depth in metres, avoid negative values: \n"))
+output_filename = input("Enter output filename, dont include xlsx: \n")
+
+names = ["x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"]
+variable_plot = input('Please enter among the following: "x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap":      ')
 
 import pandas as pd
 import os
@@ -11,9 +17,6 @@ import glob
 from pathlib import Path
 import numpy
 import matplotlib.pyplot as plt
-destination = input("Enter destination from this folder: \n")
-depth = float(input("Enter max depth in metres, avoid negative values: \n"))
-output_filename = input("Enter output filename, dont include xlsx: \n")
 
 files = glob.glob("./" + destination + "/*", recursive=True)
 import re
@@ -80,8 +83,8 @@ print("---------------------Appending files done--------------------------------
 
 print("*************************************************************************************************")
 
-names = ["x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"]
-variable_plot = input('Please enter among the following: "x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap":      ')
+#names = ["x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"]
+#variable_plot = input('Please enter among the following: "x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap":      ')
 #print('"x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"')
 daf = pd.DataFrame(columns=names)
 for item in final_list:

@@ -64,6 +64,6 @@ for item in final_list:
     daf = daf.append(df)
     
 
-daf.to_excel(output_filename+ ".xlsx")
+daf.to_excel(output_filename+destination+ ".xlsx")
 sorteddf = daf[daf['z']>=-1*depth]
-sorteddf.to_excel(output_filename+str(-1*depth)+".xlsx")
+sorteddf.to_excel(output_filename+destination+str(-1*depth)+".xlsx")

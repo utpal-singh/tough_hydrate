@@ -14,7 +14,13 @@ destination = input("Enter destination from this folder: \n")
 depth = float(input("Enter max depth in metres, avoid negative values: \n"))
 output_filename = input("Enter output filename, dont include xlsx: \n")
 
-files = glob.glob("./" + destination + "/*", recursive=True)
+#requires pip install openpyxl
+
+current_working_dir = os.getcwd()
+destination_working_dir = os.path.join(current_working_dir, destination)
+#files = glob.glob("./" + destination + "/*", recursive=True)
+files = glob.glob(destination_working_dir + "/*", recursive=True)
+
 import re
 
 def atof(text):
@@ -31,8 +37,9 @@ alist = files
 
 alist.sort(key=natural_keys)
 
-start_letter = "./" + destination + "/" + 'Plot_Data_Elem_'
-
+#start_letter = "./" + destination + "/" + 'Plot_Data_Elem_'
+start_letter = os.path.join(destination_working_dir, "Plot_Data_Elem_")
+print(start_letter)
 # printing original list
 print("****************************************************************************************")
 # using list comprehension + startswith()
@@ -64,6 +71,6 @@ for item in final_list:
     daf = daf.append(df)
     
 
-daf.to_excel(output_filename+destination+ ".xlsx")
+daf.to_csv(output_filename+destination+ ".xlsx")
 sorteddf = daf[daf['z']>=-1*depth]
-sorteddf.to_excel(output_filename+destination+str(-1*depth)+".xlsx")
+sorteddf.to_csv(output_filename+destination+str(-1*depth)+".xlsx")

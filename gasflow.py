@@ -19,10 +19,17 @@ from pathlib import Path
 destination = input("Enter destination from this folder: \n")
 #depth = float(input("Enter max depth in metres, avoid negative values: \n"))
 #output_filename = input("Enter output filename, dont include xlsx: \n")
-if os.path.exists("gasflow.csv"):
-    os.remove("gasflow.csv")
-files = glob.glob("./" + destination + "/*", recursive=True)
+if os.path.exists("gasflow_" + destination + ".csv"):
+    os.remove("gasflow_" + destination + ".csv")
+    
+if os.path.exists("gasflow_" + destination + ".dat"):
+    os.remove("gasflow_" + destination + ".dat")
 import re
+
+current_working_dir = os.getcwd()
+destination_working_dir = os.path.join(current_working_dir, destination)
+#files = glob.glob("./" + destination + "/*", recursive=True)
+files = glob.glob(destination_working_dir + "/*", recursive=True)
 
 def atof(text):
     try:
@@ -37,13 +44,18 @@ def natural_keys(text):
 alist = files
 alist.sort(key=natural_keys)
 
-start_letter = "./" + destination + "/" + 'tchange_T_'
+#start_letter = "./" + destination + "/" + 'tchange_T_'
+start_letter = os.path.join(destination_working_dir, "tchange_T_")
+
 final_list = [x for x in alist if x.startswith(start_letter)]
+
+
 for elem in final_list:
     first_string = elem.split("_")[-1]
     number_str = first_string.split(".")[0] 
     f = open(elem,'r', encoding='latin-1')
     g = open(elem,'r', encoding='latin-1')
+    h = open(elem,'r', encoding='latin-1')
     line_num = 0
     search_phrase = "Gas Flow"
     for line in f.readlines():
@@ -51,16 +63,26 @@ for elem in final_list:
         if line.find(search_phrase) >= 0:
             #print(number_str + "    " + str(line_num))
             #print(number_str + "," +g.readlines()[line_num+3].strip().split()[4])
-            filename = 'gasflow.csv'
+            filename = "gasflow_" + destination + ".csv"
+            filename_dat = "gasflow_" + destination + ".dat"
 
             if os.path.exists(filename):
                 append_write = 'a' # append if already exists
             else:
                 append_write = 'w' # make a new file if not
+                
+            if os.path.exists(filename_dat):
+                append_write_dat = 'a' # append if already exists
+            else:
+                append_write_dat = 'w' # make a new file if not
 
             gash = open(filename,append_write)
             gash.write(number_str + "," +g.readlines()[line_num+3].strip().split()[4] + '\n')
             gash.close()
+            
+            gas_dat = open(filename_dat,append_write_dat)
+            gas_dat.write(number_str + "\t" +h.readlines()[line_num+3].strip().split()[4] + '\n')
+            gas_dat.close()
             break
 
 '''

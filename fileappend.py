@@ -46,8 +46,6 @@ print("*************************************************************************
 # Prefix Separation
 final_list = [x for x in alist if x.startswith(start_letter)]
 
-print(final_list)
-
 
 mylist = []
 length = 0
@@ -71,6 +69,6 @@ for item in final_list:
     daf = daf.append(df)
     
 
-daf.to_csv(output_filename+destination+ ".xlsx")
+daf.to_csv(output_filename+destination+ ".csv")
 sorteddf = daf[daf['z']>=-1*depth]
-sorteddf.to_csv(output_filename+destination+str(-1*depth)+".xlsx")
+sorteddf.to_csv(output_filename+destination+str(-1*depth)+".csv")

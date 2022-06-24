@@ -35,11 +35,14 @@ def natural_keys(text):
 
 alist = files
 
+print("******************alist end*****************************")
+
 alist.sort(key=natural_keys)
 
 #start_letter = "./" + destination + "/" + 'Plot_Data_Elem_'
 start_letter = os.path.join(destination_working_dir, "Plot_Data_Elem_")
-print(start_letter)
+
+print("******alist sorted and started-letter************************")
 # printing original list
 print("****************************************************************************************")
 # using list comprehension + startswith()
@@ -50,6 +53,7 @@ final_list = [x for x in alist if x.startswith(start_letter)]
 mylist = []
 length = 0
 
+print("******************loop begin**************************")
 names = ["x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"]
 daf = pd.DataFrame(columns=names)
 for item in final_list:
@@ -68,7 +72,7 @@ for item in final_list:
     df.drop(length_df, inplace=True)        
     daf = daf.append(df)
     
-
+print("******************loop end******************")
 daf.to_csv(output_filename+destination+ ".csv")
 sorteddf = daf[daf['z']>=-1*depth]
 sorteddf.to_csv(output_filename+destination+str(-1*depth)+".csv")

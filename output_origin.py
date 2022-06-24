@@ -21,6 +21,9 @@ destination_working_dir = os.path.join(current_working_dir, destination)
 #files = glob.glob("./" + destination + "/*", recursive=True)
 files = glob.glob(destination_working_dir + "/*", recursive=True)
 
+if not os.path.exists("plots_" + destination + "_" + output_filename):
+    os.makedirs("plots_" + destination + "_" + output_filename)
+
 import re
 
 def atof(text):
@@ -59,7 +62,6 @@ daf = pd.DataFrame(columns=names)
 for item in final_list:
     first_string = item.split("_")[-1]
     number_str = first_string.split(".")[0]
-    print(number_str)
     df = pd.read_csv(item, sep = "  | ", names = names, skiprows=2, nrows=1501)
     length_df = len(df)
     temp = df
@@ -72,10 +74,15 @@ for item in final_list:
     df.loc[length_df] = df.loc[length_df-1]
     df = df.shift(1)
     df.iloc[0] = df.iloc[length_df]
-    df.drop(length_df, inplace=True)        
+    df.drop(length_df, inplace=True)
+    df["Sh"] = df["S_hyd"]*100
+    df["Sg"] = df["S_gas"]*100
+    df["Cl"] = df["X_inh"]*1000/(0.00176*35.5)
+    df.to_csv(os.path.join("plots_" + destination + "_" + output_filename, "a" + number_str + ".dat"), sep = "\t")    
     daf = daf.append(df)
     
 print("******************loop end******************")
-daf.to_csv(output_filename+destination+ ".csv")
-sorteddf = daf[daf['z']>=-1*depth]
-sorteddf.to_csv(output_filename+destination+str(-1*depth)+".csv")
+
+#daf.to_csv(output_filename+destination+ ".csv")
+#sorteddf = daf[daf['z']>=-1*depth]
+#sorteddf.to_csv(output_filename+destination+str(-1*depth)+".csv")

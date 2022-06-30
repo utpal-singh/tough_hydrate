@@ -7,6 +7,11 @@ Created on Sun Dec 19 18:20:58 2021
 destination = input("Enter destination from this folder: \n")
 depth = float(input("Enter max depth in metres, avoid negative values: \n"))
 
+flags = input("Press f if you want last few lines to be plotted:    \n")
+
+if flags == "f":
+    num_files = int(input("Enter number of files from end to be plotted:  \n"))
+
 names = ["x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap"]
 variable_plot = input('Please enter among the following: "x", "y", "z",  "P",  "T",  "S_hyd",  "S_aqu",  "S_gas",  "S_icd",  "X_inh",  "k_rg",  "k_rw",  "k_adj_F",  "perm_abs",  "porosity",  "P_cap":      ')
 
@@ -47,6 +52,9 @@ print("*************************************************************************
 # using list comprehension + startswith()
 # Prefix Separation
 final_list = [x for x in alist if x.startswith(start_letter)]
+
+if flags == "f":
+    final_list = final_list[(-1*num_files):]
 
 print("-----------------------------Making final list------------------------------------------")
 
